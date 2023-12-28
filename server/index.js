@@ -1,14 +1,17 @@
 const express = require("express");
 const app = express();
 
+//mail of unresolved complains send to admin every morning
 require('./middlewares/mailSendToAdmin');
 
+//routes import
 const profileRoutes = require("./routes/Profile");
 const userRoutes = require("./routes/User");
 const complainRoutes= require("./routes/Complaint");
 const menuRoutes=require("./routes/MenuItem");
 const transactionRoutes=require("./routes/Transaction");
 
+//configuration import
 const database = require("./config/database");
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser");
