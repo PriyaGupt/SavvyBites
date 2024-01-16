@@ -1,20 +1,19 @@
-const Profile = require("../Models/Profile");
+ const Profile = require("../Models/Profile");
 const User = require("../Models/Users");
+const {uploadImageToCloudinary} = require("../utils/imageUploader");
 
 exports.updateProfile = async (req, res) => {
 	try {
-		const { dateOfBirth = "", about = "", contactNumber } = req.body;
+		const { dateOfBirth = "", about = "", contactNumber,gender } = req.body;
 		const id = req.user.id;
 
-		// Find the profile by id
 		const userDetails = await User.findById(id);
 		const profile = await Profile.findById(userDetails.additionalDetails);
-
-		// Update the profile fields
+         
 		profile.dateOfBirth = dateOfBirth;
 		profile.about = about;
 		profile.contactNumber = contactNumber;
-
+         profile.gender=gender;
 		// Save the updated profile
 		await profile.save();
 		// userDetails.additionalDetails=profile._id;
@@ -23,6 +22,7 @@ exports.updateProfile = async (req, res) => {
 			success: true,
 			message: "Profile updated successfully",
 			profile,
+			userDetails,
 		});
 	} catch (error) {
 		console.log(error);
@@ -36,7 +36,7 @@ exports.updateProfile = async (req, res) => {
 
 exports.deleteAccount = async (req, res) => {
 	try {
-	
+		
 		console.log("Printing ID: ", req.user.id);
 		const id = req.user.id;
 		
@@ -49,7 +49,7 @@ exports.deleteAccount = async (req, res) => {
 		}
 		// Delete Assosiated Profile with the User
 		await Profile.findByIdAndDelete({ _id: user.additionalDetails });
-        
+		
 		await User.findByIdAndDelete({ _id: id });
 		res.status(200).json({
 			success: true,
@@ -85,7 +85,11 @@ exports.getAllUserDetails = async (req, res) => {
 
 exports.updateDisplayPicture = async (req, res) => {
     try {
+		console.log("Inside controller")
+		console.log(req.files)
       const displayPicture = req.files.displayPicture
+	  console.log(displayPicture)
+	  console.log("end")
       const userId = req.user.id
       const image = await uploadImageToCloudinary(
         displayPicture,
@@ -93,6 +97,7 @@ exports.updateDisplayPicture = async (req, res) => {
         1000,
         1000
       )
+	  console.log("before picture")
       console.log(image)
       const updatedProfile = await User.findByIdAndUpdate(
         { _id: userId },
@@ -136,4 +141,52 @@ exports.getUserComplaints = async (req, res) => {
         message: error.message,
       })
     }
+};
+
+
+exports.getAllUsers = async (req,res)=>{
+	try{
+	const users = await User.find({UserType:"Student"});
+	return res.status(200).json({
+        success: true,
+        data: users,
+      })
+	}
+	catch(error){
+		return res.status(404).json({
+			success:false,
+			message:error.message,
+		})
+	}
+
+}
+
+exports.deleteAccountById = async (req, res) => {
+	try {
+		
+		const {id} = req.body;
+		console.log("inside delete controller")
+		console.log(id)
+		console.log("end of delete")
+		const user = await User.findById({ _id: id });
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: "User not found",
+			});
+		}
+		// Delete Assosiated Profile with the User
+		await Profile.findByIdAndDelete({ _id: user.additionalDetails });
+		
+		await User.findByIdAndDelete({ _id: id });
+		res.status(200).json({
+			success: true,
+			message: "User deleted successfully",
+		});
+	} catch (error) {
+		console.log(error);
+		res
+			.status(500)
+			.json({ success: false, message: "User Cannot be deleted successfully" });
+	}
 };
