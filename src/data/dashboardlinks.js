@@ -1,4 +1,5 @@
-export const sidebarLinks = [
+
+  export const sidebarLinks = [
     {
       id: 1,
       name: "My Profile",
@@ -9,41 +10,41 @@ export const sidebarLinks = [
       id: 2,
       name: "Complaints",
       path: "/dashboard/all-open-complaints",
-      icon: "VscDashboard",
+      icon: "VscOutput",
     },
     {
       id: 3,
       name: "My complains",
       path: "/dashboard/my-complaints",
       type: "Student",
-      icon: "VscVm",
+      icon: "VscProject",
     },
     {
         id: 4,
         name: "My Resolved complains",
         path: "/dashboard/my-complaints",
         type: "Professor",
-        icon: "VscVm",
+        icon: "VscProject",
       },
       {
         id: 5,
         name: "My Resolved complains",
         path: "/dashboard/my-complaints",
         type: "ChiefWarden",
-        icon: "VscVm",
+        icon: "VscProject",
       },
     {
       id: 6,
       name: "Register Complaints",
       path: "/dashboard/register-complain",
       type: "Student",
-      icon: "VscAdd",
+      icon: "VscBook",
     },
     {
       id: 7,
       name: "MenuList",
       path: "/dashboard/show-menulist",
-      icon: "VscMortarBoard",
+      icon: "VscArchive",
     },
     {
       id: 8,
@@ -51,7 +52,15 @@ export const sidebarLinks = [
       path: "/dashboard/mealRecords",
       type: "Accountant",
       icon: "VscVm"
-    }
+    },
+    {
+      id: 9,
+      name: "All Students",
+      path: "/dashboard/allStudents",
+      type: "ChiefWarden",
+      icon: "VscOrganization"
+    },
+
     
   ];
   
