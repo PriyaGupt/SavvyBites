@@ -52,9 +52,9 @@ Start the Server
    - They can view all open complaints and update the mess menu as needed.
 
 ### Accountant Functionality:
-    - Accountants manage expenses, including addition, updating, and deletion, categorized by various expense categories.
-    - Provides graphical and tabulated representations of expenses for better visualization.
-    - Enables tracking of expenses for specific items within defined date ranges for better financial management.
+   - Accountants manage expenses, including addition, updating, and deletion, categorized by various expense categories.
+   - Provides graphical and tabulated representations of expenses for better visualization.
+   - Enables tracking of expenses for specific items within defined date ranges for better financial management.
 
 ## Team Members
    - Priya Gupta (Reg no-20214213)
